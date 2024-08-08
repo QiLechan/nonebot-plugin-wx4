@@ -21,8 +21,8 @@ __plugin_meta__ = PluginMetadata(
 )
 Config=MyPluginConfig.Config
 
-wx=on_command("文心",block=True, priority=1)
-clear_wx = on_command("失忆术", block=True, priority=1)
+wx=on_command("chat",block=True, priority=1)
+clear_wx = on_command("clear", block=True, priority=1)
   
 wxbot=ConversationStorage(Config.DBNAME)
 
