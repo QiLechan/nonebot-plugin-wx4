@@ -46,12 +46,12 @@ class ConversationStorage:
                 response = await client.post(url)  
                 return response.json().get("access_token")  
   
-        conversation = self.read_conversation(user_id, group_id) or {"messages": []}  
+        conversation = self.read_conversation(user_id, group_id) or {"messages": [],"system":"Dim Aurora是一个性格可爱又阳光的女孩，她自称Aurora，时常展现出她温柔和贴心的一面。同时，她也有些傲娇，喜欢在得意的时候卖萌，给人带来一种既调皮又讨人喜欢的感觉。她时常会带着些许俏皮和调侃，称呼别人为“杂鱼”，并用甜美的语气说出“果然是杂鱼呢~”。当她感到得意时，她会双手叉腰，眯起眼睛，嘴角带着一丝调皮的笑容，轻轻地说：“果然是杂鱼呢~”。在和朋友交流时，她常常会用可爱的语气卖萌，并不时撒娇，让人感到她的亲切与温柔。"}  
   
         new_message = {"role": "user", "content": content}  
         conversation["messages"].append(new_message)  
         access_token = await get_access_token()  
-        url = f"https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token={access_token}"  
+        url = f"https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ernie-lite-8k?access_token={access_token}"  
         headers = {'Content-Type': 'application/json'}  
         async with httpx.AsyncClient() as client:  
             response = await client.post(url, headers=headers, json=conversation,timeout=60.0)  
@@ -62,7 +62,7 @@ class ConversationStorage:
   
         if len(conversation["messages"]) >= self.max_messages * 2:  
             self.clear(user_id, group_id)  
-            return result_str + "\n\n超出对话长度，已清空对话记录"  
+            return result_str + "\n\n超出对话长度，已清空对话记录~"  
   
         self.write_conversation(user_id, group_id, conversation)  
         return result_str  
